@@ -62,8 +62,6 @@ Travelers face unpredictable disruptions: sudden flight delays, lost booking PDF
 ├── manifest.json                    # PWA Web App Manifest
 ├── styles.css                       # Standalone styling sheet
 ├── sw.js                            # Service Worker for offline capability
-├── hackathon_pitch_video_script.md  # 3m28s 8-second clip pitch script with Gemini video prompts
-├── keynote_pitch_video_script.md    # Silicon Valley Keynote script (Jobs, Pichai, Cook personas)
 └── README.md                        # Documentation & Architecture Overview
 ```
 
@@ -89,13 +87,6 @@ Travelers face unpredictable disruptions: sudden flight delays, lost booking PDF
    - Go to **Itinerary Recovery** tab and test `+90 Mins Delay` ➔ Click `⚡ Apply Suggested Sequence`.
    - Click the bottom-right **🎙️ Voice AI** button and speak or select quick chips.
    - Click **Book a Cab** to launch the Ola / Uber / Rapido aggregator.
-
----
-
-## 🏆 Pitch Video Resources
-The repository includes complete video production scripts broken into 26 8-second clips with exact Gemini video generation prompts:
-- [Hackathon Pitch Video Script](hackathon_pitch_video_script.md)
-- [Silicon Valley Keynote Pitch Script](keynote_pitch_video_script.md)
 
 ---
 
