@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TripReady AI - iQOO AMG Performance Edition</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <!-- Google Fonts: Plus Jakarta Sans for high-performance typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #07090E;
+      --card-bg: rgba(13, 17, 26, 0.92);
+      --card-border: rgba(255, 255, 255, 0.09);
+      --iqoo-yellow: #FFC700;
+      --iqoo-yellow-hover: #E6B200;
+      --amg-teal: #00D2BE;
+      --amg-red: #E5002B;
+      --amg-blue: #002B7F;
+      --text-main: #FFFFFF;
+      --text-muted: #94A3B8;
+    }
+    
+    /* iQOO AMG Motorsport Carbon-Weave Track Background */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-dark);
+      background-image: 
+        /* AMG Petronas Teal Speed Glow */
+        radial-gradient(at 0% 0%, rgba(0, 210, 190, 0.12) 0px, transparent 40%),
+        /* iQOO Monster Performance Speed Yellow Glow */
+        radial-gradient(at 100% 0%, rgba(255, 199, 0, 0.12) 0px, transparent 45%),
+        /* AMG Track Red Underglow */
+        radial-gradient(at 50% 100%, rgba(229, 0, 43, 0.08) 0px, transparent 50%),
+        /* High-Tech Carbon Fiber Weave Texture */
+        linear-gradient(135deg, rgba(20, 26, 38, 0.4) 25%, transparent 25%), 
+        linear-gradient(225deg, rgba(20, 26, 38, 0.4) 25%, transparent 25%), 
+        linear-gradient(45deg, rgba(20, 26, 38, 0.4) 25%, transparent 25%), 
+        linear-gradient(315deg, rgba(20, 26, 38, 0.4) 25%, var(--bg-dark) 25%);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 16px 16px, 16px 16px, 16px 16px, 16px 16px;
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      overflow: hidden;
+    }
+    
+    .app-viewport {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      width: 100%;
+    }
+    .scrollable-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem 1rem 2rem;
+    }
+    .custom-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      box-shadow: 0 10px 35px -5px rgba(0, 0, 0, 0.7), 0 0 1px 1px rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px);
+    }
+    .btn-action {
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-action:hover {
+      transform: translateY(-2px);
+    }
+    .bottom-nav-item {
+      transition: all 0.2s ease;
+      color: #94A3B8;
+    }
+    .bottom-nav-item.active {
+      background: linear-gradient(135deg, #FFC700 0%, #FF9900 100%);
+      color: #07090E !important;
+      border-radius: 14px;
+      font-weight: 800;
+      box-shadow: 0 4px 18px rgba(255, 199, 0, 0.35);
+    }
+    .delay-btn {
+      transition: all 0.2s ease;
+      background: rgba(18, 23, 34, 0.85);
+      color: #94A3B8;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .delay-btn.active {
+      border-color: #FFC700;
+      background: linear-gradient(135deg, #FFC700 0%, #FF9900 100%);
+      color: #07090E;
+      font-weight: 800;
+      box-shadow: 0 4px 16px rgba(255, 199, 0, 0.35);
+    }
+    .cab-option-card {
+      transition: all 0.2s ease;
+      cursor: pointer;
+      background: rgba(18, 23, 34, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .cab-option-card:hover {
+      transform: translateY(-2px);
+      border-color: #FFC700;
+      background: rgba(25, 32, 48, 0.9);
+      box-shadow: 0 8px 22px -4px rgba(255, 199, 0, 0.2);
+    }
+    /* iQOO AMG Tricolor Speed Badge */
+    .amg-tricolor {
+      display: inline-flex;
+      height: 12px;
+      border-radius: 3px;
+      overflow: hidden;
+      box-shadow: 0 0 8px rgba(0, 210, 190, 0.3);
+    }
+    .amg-tricolor span {
+      width: 6px;
+      height: 100%;
+      transform: skewX(-20deg);
+    }
+    /* Sleek Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #252D3D;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3B465E;
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <div class="app-viewport">
+    
+    <!-- Top AMG Track Glow Bar -->
+    <div class="h-1 w-full bg-gradient-to-r from-[#00D2BE] via-[#FFC700] to-[#E5002B]"></div>
+
+    <!-- MAIN SCROLLABLE CONTENT AREA -->
+    <main class="scrollable-content">
+      <div class="max-w-4xl mx-auto space-y-5">
+        
+        <!-- Top Header: iQOO AMG Motorsport Track Edition -->
+        <header class="custom-card p-4 sm:p-5 flex flex-wrap justify-between items-center gap-4 border-l-4 border-l-[#FFC700]">
+          <div class="flex items-center gap-3.5">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-yellow-400 to-amber-500 text-slate-950 flex items-center justify-center font-black text-2xl shadow-lg shadow-yellow-500/25">
+              ⚡
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded bg-[#FFC700] text-slate-950 font-black text-[10px] tracking-wider uppercase shadow-sm">iQOO</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-[#00D2BE] border border-[#00D2BE]/30 font-extrabold text-[10px] tracking-wider uppercase">AMG</span>
+                <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2">
+                  TripReady AI
+                </h1>
+                <div class="amg-tricolor ml-1">
+                  <span style="background:#00D2BE"></span>
+                  <span style="background:#002B7F"></span>
+                  <span style="background:#E5002B"></span>
+                </div>
+              </div>
+              <p class="text-xs text-slate-400 font-medium mt-0.5">Monster Performance Travel Companion & Adaptive Delay Protection</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <!-- Real Event Dynamic Risk Score Badge (Click to view detailed breakdown modal) -->
+            <div class="flex items-center gap-3 bg-[#0A0E17]/90 hover:bg-[#121824] px-4 py-2.5 rounded-2xl border border-yellow-500/30 hover:border-yellow-400 cursor-pointer transition-all shadow-md" onclick="openTripRiskModal()" title="Click to view detailed Trip Risk breakdown">
+              <div class="text-right">
+                <div class="text-[10px] font-bold uppercase text-slate-400 tracking-wider">Trip Risk Score</div>
+                <div class="text-xs font-bold text-yellow-400" id="risk-label">Calculated Live...</div>
+              </div>
+              <div class="w-10 h-10 rounded-full bg-yellow-400/15 border-2 border-yellow-400 text-yellow-300 flex items-center justify-center font-black text-sm shadow-inner" id="risk-score-badge">
+                --
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- ==================== TAB 1: HOME SCREEN ==================== -->
+        <div id="tab-home" class="tab-content space-y-5">
+          
+          <!-- FEATURE: LIVE DESTINATION WEATHER & TRAFFIC RADAR -->
+          <div class="custom-card p-5 border-l-4 border-l-[#00D2BE] flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center gap-3.5">
+              <div class="text-3xl p-2.5 rounded-2xl bg-slate-900 border border-slate-800" id="weather-icon-main">🌦️</div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-[#00D2BE] uppercase tracking-wider">Destination Telemetry</span>
+                  <select id="weather-city-select" onchange="changeCityWeather(this.value)" class="bg-slate-900 text-white text-xs font-bold px-2.5 py-1 rounded-xl border border-slate-700 focus:outline-none focus:border-[#00D2BE] transition-colors cursor-pointer">
+                    <option value="delhi" selected>New Delhi (India)</option>
+                    <option value="hyderabad">Hyderabad (India)</option>
+                    <option value="bengaluru">Bengaluru (India)</option>
+                    <option value="london">London (UK)</option>
+                    <option value="dubai">Dubai (UAE)</option>
+                  </select>
+                </div>
+                <div class="text-base font-extrabold text-white mt-0.5" id="weather-temp-text">26°C • Light Rain</div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3 text-xs">
+              <div class="text-center px-3.5 py-2 rounded-2xl bg-slate-900/80 border border-slate-800">
+                <span class="text-slate-400 text-[10px] block font-bold uppercase">Rain Chance</span>
+                <span class="font-extrabold text-[#00D2BE]" id="weather-rain-val">65% High</span>
+              </div>
+              <div class="text-center px-3.5 py-2 rounded-2xl bg-slate-900/80 border border-slate-800">
+                <span class="text-slate-400 text-[10px] block font-bold uppercase">Traffic Radar</span>
+                <span class="font-extrabold text-yellow-400" id="weather-traffic-val">Moderate (1.2x)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Upcoming Event Card (iQOO Yellow Performance Highlight) -->
+          <div class="custom-card p-6 border-l-4 border-l-yellow-400 shadow-xl">
+            <div class="flex justify-between items-start mb-3">
+              <span class="text-xs font-extrabold uppercase tracking-wider text-yellow-400 flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/30 px-3 py-1 rounded-full">
+                <span class="w-2 h-2 rounded-full bg-yellow-400 animate-ping"></span>
+                Active Trip Event
+              </span>
+              <span class="text-xs bg-slate-900/90 border border-yellow-500/30 px-3 py-1 rounded-full text-yellow-300 font-mono font-bold" id="event-countdown-tag">
+                ⏱️ 2h 45m left
+              </span>
+            </div>
+
+            <h2 class="text-xl font-extrabold text-white mb-2 flex items-center gap-2" id="current-event-title">
+              🛫 Flight Departure (Vistara UK-814)
+            </h2>
+
+            <!-- Dynamic Event Details Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 my-4 p-4 rounded-2xl bg-[#080B12] border border-slate-800 text-xs" id="event-dynamic-grid">
+              <!-- Rendered dynamically -->
+            </div>
+
+            <div class="text-xs text-slate-400 mb-4 flex items-center gap-2 bg-slate-900/60 border border-slate-800 px-3.5 py-2 rounded-xl">
+              <span>🌦️ Weather Context: 26°C Light Rain predicted (Raincoat suggested)</span>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="pt-4 border-t border-slate-800 flex flex-wrap justify-between items-center gap-3">
+              <div class="flex items-center gap-2">
+                <button onclick="openEventChecklistModal()" class="btn-action px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-yellow-300 border border-yellow-500/30 font-bold text-xs flex items-center gap-2 shadow-sm">
+                  📋 Event Checklist
+                </button>
+              </div>
+
+              <button onclick="finishCurrentEvent()" class="btn-action px-5 py-2.5 rounded-xl bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-500 hover:from-yellow-300 hover:to-amber-400 text-slate-950 font-black text-xs flex items-center gap-2 shadow-lg shadow-yellow-500/25">
+                ✅ Finish Event (Next Event →)
+              </button>
+            </div>
+          </div>
+
+          <!-- Estimated Time to Reach & Cab Booking -->
+          <div class="custom-card p-6 border-l-4 border-l-[#00D2BE]" id="cab-transit-card">
+            <div class="flex justify-between items-center mb-3">
+              <div>
+                <span class="text-xs font-extrabold uppercase tracking-wider text-[#00D2BE]">AMG Track Transit</span>
+                <h3 class="text-sm font-bold text-white mt-0.5">Estimated time to reach destination</h3>
+              </div>
+              <span class="text-xs px-3 py-1 rounded-full bg-[#00D2BE]/10 text-[#00D2BE] font-bold border border-[#00D2BE]/30">
+                Live GPS Synced
+              </span>
+            </div>
+
+            <div class="flex items-center justify-between p-4 bg-[#080B12] rounded-2xl border border-slate-800 my-3" id="cab-status-box">
+              <div>
+                <div class="text-2xl font-black text-white" id="transit-time-text">42 Mins</div>
+                <div class="text-xs text-slate-400" id="transit-dest-text">To Indira Gandhi Intl Airport (T3)</div>
+              </div>
+              <button onclick="openCabModal()" id="btn-open-cab-booking" class="btn-action px-4 py-2.5 bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-300 hover:to-amber-400 text-slate-950 text-xs font-black rounded-xl shadow-lg shadow-yellow-500/20 flex items-center gap-2">
+                🚕 Book a Cab
+              </button>
+            </div>
+            <p class="text-[11px] text-slate-400" id="cab-subtitle-text">Compares live fares across Ola, Uber, and Rapido based on current GPS location.</p>
+          </div>
+
+        </div>
+
+        <!-- ==================== TAB 2: EVENTS TIMELINE ==================== -->
+        <div id="tab-events" class="tab-content hidden space-y-5">
+          <div class="custom-card p-6">
+            <div class="flex justify-between items-center mb-4">
+              <div>
+                <h2 class="text-lg font-black text-white">📅 All Planned Events (Calendar & Telemetry)</h2>
+                <p class="text-xs text-slate-400">Select any event to review checklist items or track progress.</p>
+              </div>
+              <span class="text-xs bg-emerald-500/20 text-emerald-400 px-3 py-1 rounded-full font-bold border border-emerald-500/30">
+                4 Active Events
+              </span>
+            </div>
+
+            <div class="space-y-3" id="events-list-container">
+              <!-- Dynamically populated events -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== TAB 3: ITINERARY RECOVERY ==================== -->
+        <div id="tab-recovery" class="tab-content hidden space-y-5">
+          <div class="custom-card p-6 border-l-4 border-l-amber-500">
+            <div class="flex justify-between items-start mb-3">
+              <div>
+                <span class="text-xs font-extrabold uppercase tracking-wider text-amber-400">iQOO Monster Optimization</span>
+                <h2 class="text-xl font-black text-white mt-1">🔄 Itinerary Recovery</h2>
+                <p class="text-xs text-slate-300 mt-1 font-medium">Dynamically optimizes schedule when flight delays threaten downstream commitments.</p>
+              </div>
+              <span class="text-xs bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full font-bold border border-amber-500/30" id="recovery-status-pill">
+                ⚡ Delay Reroute Active
+              </span>
+            </div>
+
+            <!-- Delay Simulation Controls -->
+            <div class="my-4 p-4 rounded-2xl bg-slate-900/80 border border-slate-800 flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <div class="text-xs font-bold text-white">Simulate Flight Delay:</div>
+                <div class="text-[11px] text-slate-400">Select delay duration to recalculate trip risk score and auto-recovery plan</div>
+              </div>
+              <div class="flex gap-2">
+                <button onclick="simulateDelay(0)" id="btn-delay-0" class="delay-btn px-3.5 py-1.5 rounded-xl text-xs font-bold">On Time</button>
+                <button onclick="simulateDelay(45)" id="btn-delay-45" class="delay-btn px-3.5 py-1.5 rounded-xl text-xs font-bold">+45 Mins</button>
+                <button onclick="simulateDelay(90)" id="btn-delay-90" class="delay-btn active px-3.5 py-1.5 rounded-xl text-xs font-bold">+90 Mins Delay</button>
+              </div>
+            </div>
+
+            <!-- Comparison Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-5">
+              
+              <!-- Original Sequence -->
+              <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-3">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-extrabold uppercase text-slate-400">Original Sequence</span>
+                  <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded font-mono" id="orig-total-time">4 Hours Total</span>
+                </div>
+
+                <div class="space-y-2 text-xs font-semibold text-slate-200" id="orig-sequence-box">
+                  <!-- Rendered dynamically -->
+                </div>
+                <p class="text-[11px] text-red-400 italic font-medium" id="orig-warning-msg">⚠️ Flight delay causes 45-minute delay to Conference keynote!</p>
+              </div>
+
+              <!-- New Suggested Sequence -->
+              <div class="p-4 rounded-2xl bg-emerald-950/40 border-2 border-emerald-500/50 space-y-3 shadow-lg shadow-emerald-950/40">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-extrabold uppercase text-emerald-400 flex items-center gap-1">
+                    ⭐ Recommended Direct Route
+                  </span>
+                  <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-2.5 py-0.5 rounded-full font-bold border border-emerald-500/30" id="suggested-status-badge">On Time Recovery</span>
+                </div>
+
+                <div class="space-y-2 text-xs font-semibold text-slate-200" id="suggested-sequence-box">
+                  <!-- Rendered dynamically -->
+                </div>
+                <p class="text-[11px] text-emerald-300 font-semibold" id="suggested-summary-msg">✅ Direct Airport ➔ Conference saves 1h 30m! Lunch skipped to ensure keynote attendance.</p>
+              </div>
+
+            </div>
+
+            <button onclick="applyRecoveredItinerary()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-500 hover:from-yellow-300 hover:to-amber-300 text-slate-950 font-black text-xs shadow-lg shadow-yellow-500/25 flex items-center justify-center gap-2">
+              ⚡ Apply Suggested Sequence to Master Itinerary
+            </button>
+
+          </div>
+        </div>
+
+        <!-- ==================== TAB 4: FEATURE: DIRECT GMAIL & OUTLOOK TICKET AUTO-SYNC ==================== -->
+        <div id="tab-extractor" class="tab-content hidden space-y-5">
+          
+          <!-- Direct Gmail OAuth Auto-Sync Box -->
+          <div class="custom-card p-6 border-l-4 border-l-yellow-400 space-y-4">
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="text-xs font-extrabold uppercase tracking-wider text-yellow-400">Live OAuth Ingestion</span>
+                <h2 class="text-lg font-black text-white mt-0.5">📧 Direct Gmail & Outlook Auto-Sync</h2>
+                <p class="text-xs text-slate-300">Connect your travel email to parse flight confirmations, hotel vouchers & event passes automatically.</p>
+              </div>
+              <span class="text-xs bg-yellow-400/10 text-yellow-300 px-3 py-1 rounded-full font-bold border border-yellow-400/30">
+                OAuth 2.0 Live
+              </span>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+              <button onclick="simulateGmailOAuthSync()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-300 hover:to-amber-400 text-slate-950 font-black text-xs flex items-center gap-2 shadow-lg shadow-yellow-500/20">
+                🌐 Connect & Auto-Sync Gmail
+              </button>
+              <button onclick="simulateOutlookOAuthSync()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-extrabold text-xs flex items-center gap-2 border border-slate-700">
+                ✉️ Connect Outlook Mail
+              </button>
+            </div>
+
+            <div id="email-sync-status-box" class="p-4 rounded-2xl bg-[#080B12] border border-slate-800 text-xs hidden space-y-2">
+              <div class="font-bold text-yellow-400 flex items-center gap-2">
+                <span>⚡ Synced 3 Active Travel Tickets from Inbox:</span>
+              </div>
+              <div class="text-slate-300 space-y-1 pl-4 list-disc text-[11px]">
+                <div>• Flight UK-814 (Vistara) - Terminal 3 Departure 10:00 AM</div>
+                <div>• Hotel Grand Hyatt Aerocity - Check-in 02:00 PM</div>
+                <div>• India AI Summit Registration Badge - Hall 5 04:30 PM</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Manual Ticket Text Parser -->
+          <div class="custom-card p-6 border-l-4 border-l-yellow-400">
+            <h2 class="text-lg font-black text-white mb-1">🎫 Manual Flight & Ticket Parser</h2>
+            <p class="text-xs text-slate-400 mb-4">Paste ticket snippet or load sample ticket text to extract features.</p>
+
+            <div class="space-y-3">
+              <textarea id="ticket-text-input" rows="5" class="w-full p-3.5 rounded-2xl bg-[#080B12] border border-slate-800 text-xs font-mono text-slate-200 focus:outline-none focus:border-yellow-400" placeholder="Paste flight confirmation or ticket snippet here..."></textarea>
+              
+              <div class="flex flex-wrap gap-2">
+                <button onclick="loadSampleTicket()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 font-bold border border-slate-700">
+                  📋 Load Sample Flight Ticket
+                </button>
+                <button onclick="extractTicketFeatures()" class="px-5 py-2 rounded-xl bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-300 hover:to-amber-400 text-slate-950 text-xs font-black shadow-lg shadow-yellow-500/20 flex items-center gap-2">
+                  ⚡ Extract Ticket Features Now
+                </button>
+              </div>
+            </div>
+
+            <div id="extraction-result" class="mt-5 hidden p-4 rounded-2xl bg-[#080B12] border border-yellow-500/40 text-xs space-y-3">
+              <div class="font-bold text-yellow-400 text-sm flex items-center gap-2">
+                <span>⚡ Extracted Features Successfully</span>
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-slate-300">
+                <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                  <span class="block text-[10px] text-slate-400 font-bold uppercase">Terminal</span>
+                  <span class="text-white font-bold" id="ext-terminal">T3</span>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                  <span class="block text-[10px] text-slate-400 font-bold uppercase">Check-in Counter</span>
+                  <span class="text-yellow-400 font-bold" id="ext-checkin">08:00 AM</span>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                  <span class="block text-[10px] text-slate-400 font-bold uppercase">Check-out Time</span>
+                  <span class="text-white font-bold" id="ext-checkout">11:00 AM</span>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                  <span class="block text-[10px] text-slate-400 font-bold uppercase">Baggage Allowance</span>
+                  <span class="text-yellow-400 font-bold" id="ext-baggage">15 kg (Cabin: 7 kg)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- FLOATING CHAT BOX (Positioned directly above bottom-right Mic button as per user sketch) -->
+    <div id="voice-assistant-panel" class="fixed bottom-36 right-5 z-50 w-80 sm:w-96 max-h-[500px] flex flex-col bg-[#0A0D15]/95 backdrop-blur-md border-2 border-yellow-400/70 rounded-3xl shadow-2xl overflow-hidden hidden transition-all duration-300">
+      
+      <!-- Chat Box Header -->
+      <div class="p-3.5 bg-gradient-to-r from-slate-950 via-[#121824] to-slate-950 border-b border-yellow-500/30 flex justify-between items-center shrink-0">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-yellow-400 text-slate-950 flex items-center justify-center font-black text-sm shadow-md shadow-yellow-500/30">⚡</div>
+          <div>
+            <h3 class="text-xs font-black text-white flex items-center gap-1.5">
+              TripReady AI Chat
+              <span class="text-[9px] px-1.5 py-0.2 rounded bg-yellow-400 text-slate-950 font-black">iQOO AMG</span>
+            </h3>
+            <p class="text-[10px] text-yellow-300/80 font-medium">Monster Performance Voice Assistant</p>
+          </div>
+        </div>
+        <button onclick="toggleVoiceAssistant()" class="w-7 h-7 rounded-full hover:bg-white/10 text-slate-400 hover:text-white flex items-center justify-center text-base font-bold transition-colors">&times;</button>
+      </div>
+
+      <!-- Chat Messages Scroll Container -->
+      <div id="voice-chat-messages" class="flex-1 p-3.5 overflow-y-auto space-y-2.5 text-xs max-h-64 bg-[#07090F]">
+        <div class="flex items-start gap-2">
+          <div class="w-6 h-6 rounded-full bg-yellow-400 text-slate-950 font-black flex items-center justify-center text-[10px] shrink-0">⚡</div>
+          <div class="p-3 rounded-2xl rounded-tl-none bg-slate-900 border border-slate-800 text-slate-200 leading-relaxed shadow-sm">
+            Hi! I am your <b>TripReady AI</b> companion. Tap the mic or chips to check your flight, weather radar, or autonomous delay recovery!
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Chips Slider -->
+      <div class="px-3.5 py-2 bg-slate-950 border-t border-slate-800 flex gap-1.5 overflow-x-auto text-[11px] shrink-0">
+        <button onclick="runVoiceQuery('What is my next event?')" class="whitespace-nowrap px-3 py-1 rounded-full bg-yellow-400/10 hover:bg-yellow-400/20 text-yellow-300 border border-yellow-500/30 font-bold transition-colors">
+          📍 Next Event
+        </button>
+        <button onclick="runVoiceQuery('What is the weather?')" class="whitespace-nowrap px-3 py-1 rounded-full bg-yellow-400/10 hover:bg-yellow-400/20 text-yellow-300 border border-yellow-500/30 font-bold transition-colors">
+          🌦️ Weather
+        </button>
+        <button onclick="runVoiceQuery('Am I late for conference?')" class="whitespace-nowrap px-3 py-1 rounded-full bg-yellow-400/10 hover:bg-yellow-400/20 text-yellow-300 border border-yellow-500/30 font-bold transition-colors">
+          ⏱️ Am I late?
+        </button>
+        <button onclick="runVoiceQuery('Book cab to hotel')" class="whitespace-nowrap px-3 py-1 rounded-full bg-yellow-400/10 hover:bg-yellow-400/20 text-yellow-300 border border-yellow-500/30 font-bold transition-colors">
+          🚕 Book cab
+        </button>
+      </div>
+
+      <!-- Chat Input Area with Mic & Send -->
+      <div class="p-3 bg-slate-950 border-t border-yellow-500/30 shrink-0 flex items-center gap-2">
+        <input type="text" id="voice-text-input" onkeydown="if(event.key==='Enter') submitVoiceText()" placeholder="Type query or tap mic..." class="flex-1 px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs focus:outline-none focus:border-yellow-400 placeholder:text-slate-500">
+        <button onclick="startRealSpeechRecognition()" id="btn-mic-listen" class="w-9 h-9 rounded-xl bg-yellow-400 hover:bg-yellow-300 text-slate-950 flex items-center justify-center text-sm shrink-0 shadow-md shadow-yellow-500/20 font-bold transition-all" title="Speak into Mic">
+          <span id="mic-icon-spin">🎙️</span>
+        </button>
+        <button onclick="submitVoiceText()" class="w-9 h-9 rounded-xl bg-yellow-400 hover:bg-yellow-300 text-slate-950 flex items-center justify-center text-sm shrink-0 shadow-md shadow-yellow-500/20 font-black transition-all" title="Send message">
+          ➤
+        </button>
+      </div>
+
+    </div>
+
+    <!-- FLOATING VOICE AI BUTTON (iQOO Speed Yellow Glow) -->
+    <button onclick="toggleVoiceAssistant()" id="floating-mic-btn" class="fixed bottom-20 right-5 z-40 w-14 h-14 rounded-full bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-300 hover:to-amber-400 text-slate-950 flex items-center justify-center text-2xl shadow-2xl shadow-yellow-500/40 border-2 border-yellow-200 btn-action transition-all hover:scale-105 active:scale-95" title="TripReady Voice AI Chat">
+      <span class="animate-pulse">🎙️</span>
+    </button>
+
+    <!-- SOLID BOTTOM NAVIGATION BAR FOOTER (iQOO AMG Carbon Dock) -->
+    <footer class="w-full bg-[#07090F]/95 backdrop-blur-md border-t border-slate-800/80 p-2.5 shadow-2xl shrink-0">
+      <div class="max-w-xl mx-auto bg-[#0C101A] border border-yellow-500/20 rounded-2xl p-1.5 flex items-center justify-between gap-1 text-[11px] font-bold">
+        
+        <button onclick="switchTab('tab-home')" id="bnav-tab-home" class="bottom-nav-item active flex-1 py-2 px-1 flex flex-col items-center justify-center text-slate-950">
+          <span class="text-base">🏠</span>
+          <span class="leading-tight mt-0.5">Home</span>
+        </button>
+
+        <button onclick="switchTab('tab-events')" id="bnav-tab-events" class="bottom-nav-item flex-1 py-2 px-1 flex flex-col items-center justify-center text-slate-400 hover:text-white">
+          <span class="text-base">📅</span>
+          <span class="leading-tight text-[10px] text-center mt-0.5">Events Timeline</span>
+        </button>
+
+        <button onclick="switchTab('tab-recovery')" id="bnav-tab-recovery" class="bottom-nav-item flex-1 py-2 px-1 flex flex-col items-center justify-center text-slate-400 hover:text-white">
+          <span class="text-base">🔄</span>
+          <span class="leading-tight text-[10px] text-center mt-0.5">Itinerary Recovery</span>
+        </button>
+
+        <button onclick="switchTab('tab-extractor')" id="bnav-tab-extractor" class="bottom-nav-item flex-1 py-2 px-1 flex flex-col items-center justify-center text-slate-400 hover:text-white">
+          <span class="text-base">🎫</span>
+          <span class="leading-tight text-[10px] text-center mt-0.5">Inbox & Extractor</span>
+        </button>
+
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Dynamic Event Checklist Modal -->
+  <div id="checklist-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
+    <div class="custom-card max-w-md w-full p-6 relative border-yellow-500/40 shadow-2xl">
+      <button onclick="closeEventChecklistModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white font-bold text-xl">&times;</button>
+      
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-2xl bg-yellow-400/20 text-yellow-300 border border-yellow-400/30 flex items-center justify-center text-xl">📋</div>
+        <div>
+          <h3 class="text-base font-black text-white flex items-center gap-2" id="modal-checklist-title">
+            Event Checklist
+          </h3>
+          <p class="text-xs text-yellow-400 font-medium" id="modal-checklist-subtitle">
+            Items for Conference
+          </p>
+        </div>
+      </div>
+
+      <div class="space-y-2 mb-5 text-xs max-h-60 overflow-y-auto" id="modal-checklist-items">
+        <!-- Dynamically rendered checklist items -->
+      </div>
+
+      <button onclick="closeEventChecklistModal()" class="w-full py-3 rounded-xl bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-300 hover:to-amber-400 text-slate-950 font-black text-xs shadow-lg shadow-yellow-500/20">
+        Done / Save Checklist
+      </button>
+    </div>
+  </div>
+
+  <!-- Interactive Cab Fare & Exact Spec Provider Modal -->
+  <div id="cab-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
+    <div class="custom-card max-w-md w-full p-6 relative border-yellow-500/40 shadow-2xl">
+      <button onclick="closeCabModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white font-bold text-xl">&times;</button>
+      
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-2xl bg-yellow-400/20 text-yellow-300 border border-yellow-400/30 flex items-center justify-center text-xl">🚕</div>
+        <div>
+          <h3 class="text-base font-black text-white">Select Cab Provider to Book</h3>
+          <p class="text-xs text-slate-400" id="cab-modal-dest-desc">Live fares & direct app launch</p>
+        </div>
+      </div>
+
+      <!-- Cab Providers List -->
+      <div class="space-y-3 mb-5">
+        
+        <!-- OLA CABS CARD -->
+        <div onclick="redirectToCabApp('ola')" class="cab-option-card flex justify-between items-center p-4 rounded-2xl shadow-sm">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">🚗</span>
+            <div>
+              <div class="text-xs font-bold text-white">
+                Ola Cabs (Mini / Prime Sedan)
+              </div>
+              <div class="text-[10px] text-slate-400 mt-0.5">4 mins away</div>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="font-extrabold text-yellow-400 text-sm">₹580 – ₹720</div>
+          </div>
+        </div>
+
+        <!-- UBER CABS CARD -->
+        <div onclick="redirectToCabApp('uber')" class="cab-option-card flex justify-between items-center p-4 rounded-2xl shadow-sm">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">🚘</span>
+            <div>
+              <div class="text-xs font-bold text-white">
+                Uber India (Go / Premier)
+              </div>
+              <div class="text-[10px] text-slate-400 mt-0.5">3 mins away</div>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="font-extrabold text-[#00D2BE] text-sm">₹600 – ₹750</div>
+          </div>
+        </div>
+
+        <!-- RAPIDO AUTO / CAB CARD -->
+        <div onclick="redirectToCabApp('rapido')" class="cab-option-card flex justify-between items-center p-4 rounded-2xl shadow-sm">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">🛺</span>
+            <div>
+              <div class="text-xs font-bold text-white">
+                Rapido Auto / Cab
+              </div>
+              <div class="text-[10px] text-slate-400 mt-0.5">2 mins away</div>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="font-extrabold text-[#00D2BE] text-sm">₹350 – ₹450</div>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="text-[11px] text-slate-400 text-center italic">
+        💡 Click any provider to open official app / portal directly.
+      </p>
+
+    </div>
+  </div>
+
+  <!-- Real Event Trip Risk Breakdown Modal -->
+  <div id="risk-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
+    <div class="custom-card max-w-lg w-full p-6 relative border-yellow-500/40 shadow-2xl">
+      <button onclick="closeTripRiskModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white font-bold text-xl">&times;</button>
+      
+      <div class="flex items-center justify-between gap-3 mb-4 border-b border-slate-800 pb-3.5">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-yellow-400/20 text-yellow-300 border border-yellow-400/30 flex items-center justify-center text-xl">⚡</div>
+          <div>
+            <h3 class="text-base font-black text-white">TripReady AI Risk Breakdown</h3>
+            <p class="text-xs text-slate-400">Live evaluation based on schedule, weather & checklist gaps</p>
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="text-[10px] font-bold text-slate-400 block uppercase">Trip Score</span>
+          <span class="text-xl font-black text-yellow-400" id="risk-score-page-val">70%</span>
+        </div>
+      </div>
+
+      <div class="space-y-3 mb-5 max-h-[55vh] overflow-y-auto" id="risk-cards-grid">
+        <!-- Dynamic Risk Breakdown Cards -->
+      </div>
+
+      <button onclick="closeTripRiskModal()" class="w-full py-3 rounded-xl bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-300 hover:to-amber-400 text-slate-950 font-black text-xs shadow-lg shadow-yellow-500/20">
+        Close Risk Analysis
+      </button>
+    </div>
+  </div>
+
+  <script>
+    let currentDelayMins = 90;
+
+    let cityWeatherData = {
+      delhi: { temp: '26°C • Light Rain', rain: '65% High', traffic: 'Moderate (1.2x)', icon: '🌦️' },
+      hyderabad: { temp: '29°C • Clear Sky', rain: '10% Low', traffic: 'Normal (1.0x)', icon: '☀️' },
+      bengaluru: { temp: '22°C • Cool Breeze', rain: '30% Mild', traffic: 'Heavy (1.8x)', icon: '⛅' },
+      london: { temp: '16°C • Overcast', rain: '75% High', traffic: 'Normal (1.1x)', icon: '🌧️' },
+      dubai: { temp: '38°C • Sunny & Hot', rain: '0% Dry', traffic: 'Fast (0.9x)', icon: '🌞' }
+    };
+
+    let cabProviders = {
+      rapido: { name: 'Rapido Auto / Cab', fare: '₹350 – ₹450', eta: '2 mins away', url: 'https://www.rapido.bike' },
+      ola: { name: 'Ola Cabs (Mini / Prime Sedan)', fare: '₹580 – ₹720', eta: '4 mins away', url: 'https://book.olacabs.com' },
+      uber: { name: 'Uber India (Go / Premier)', fare: '₹600 – ₹750', eta: '3 mins away', url: 'https://m.uber.com' }
+    };
+
+    let events = [
+      { 
+        id: 1, 
+        title: "Flight Departure (Vistara UK-814)", 
+        venue: "Indira Gandhi Intl Airport (T3)", 
+        time: "10:00 AM", 
+        status: "active", 
+        transitTime: "42 Mins",
+        type: "Flight",
+        meta: [
+          { label: "Terminal", val: "Terminal 3 (T3)", color: "text-white" },
+          { label: "Check-in Counter", val: "08:00 AM", color: "text-[#00D2BE]" },
+          { label: "Departure Time", val: "10:00 AM", color: "text-white" }
+        ],
+        checklist: [
+          { name: "Flight Boarding Pass & E-Ticket", checked: true, required: true },
+          { name: "Govt Photo ID / Passport", checked: true, required: true },
+          { name: "Power bank (Keep in cabin bag)", checked: false, required: true },
+          { name: "Baggage weight check (15 kg max)", checked: true, required: true },
+          { name: "Raincoat (Rain predicted at destination)", checked: false, required: false }
+        ]
+      },
+      { 
+        id: 2, 
+        title: "Hotel Booking / Check-in", 
+        venue: "Grand Hyatt Aerocity", 
+        time: "02:00 PM", 
+        status: "upcoming", 
+        transitTime: "15 Mins",
+        type: "Hotel Check-in",
+        meta: [
+          { label: "Hotel Name", val: "Grand Hyatt Aerocity", color: "text-white" },
+          { label: "Check-in Time", val: "02:00 PM", color: "text-[#00D2BE]" },
+          { label: "Check-out Time", val: "11:00 AM (Next Day)", color: "text-yellow-400" }
+        ],
+        checklist: [
+          { name: "Hotel Booking Voucher / Confirmation", checked: true, required: true },
+          { name: "Govt Photo ID for Check-in", checked: true, required: true },
+          { name: "Credit Card / Cash for Security Deposit", checked: false, required: false },
+          { name: "Toiletry kit & Personal items", checked: true, required: false }
+        ]
+      },
+      { 
+        id: 3, 
+        title: "Attending Conference (AI Summit Opening)", 
+        venue: "Pragati Maidan Hall 5", 
+        time: "04:30 PM", 
+        status: "upcoming", 
+        transitTime: "30 Mins",
+        type: "Conference",
+        meta: [
+          { label: "Venue Hall", val: "Pragati Maidan Hall 5", color: "text-white" },
+          { label: "Registration Opens", val: "04:00 PM", color: "text-[#00D2BE]" },
+          { label: "Keynote Starts", val: "04:30 PM", color: "text-white" }
+        ],
+        checklist: [
+          { name: "Conference Pass / Registration QR Badge", checked: true, required: true },
+          { name: "Laptop & Laptop Charger", checked: true, required: true },
+          { name: "Formal Clothes / Business Suit", checked: true, required: true },
+          { name: "Power bank & Phone Charger", checked: true, required: true },
+          { name: "Business Cards / Notepad", checked: false, required: false }
+        ]
+      },
+      { 
+        id: 4, 
+        title: "Amusement Park / Tourist Place Visit", 
+        venue: "Kingdom of Dreams / Fun Park", 
+        time: "Next Day 10:00 AM", 
+        status: "upcoming", 
+        transitTime: "25 Mins",
+        type: "Amusement Park",
+        meta: [
+          { label: "Attraction", val: "Kingdom of Dreams", color: "text-white" },
+          { label: "Park Opening Time", val: "10:00 AM", color: "text-[#00D2BE]" },
+          { label: "Park Closing Time", val: "08:00 PM", color: "text-slate-400" }
+        ],
+        checklist: [
+          { name: "Amusement Park Entry Ticket / E-Voucher", checked: true, required: true },
+          { name: "Comfortable Walking Shoes", checked: true, required: true },
+          { name: "Water Bottle & Sunscreen", checked: false, required: false },
+          { name: "Camera / Mobile for Photos", checked: true, required: false }
+        ]
+      }
+    ];
+
+    let currentEventIndex = 0;
+
+    // DIRECT GMAIL & OUTLOOK SYNC SIMULATION
+    function simulateGmailOAuthSync() {
+      const statusBox = document.getElementById('email-sync-status-box');
+      if (statusBox) statusBox.classList.remove('hidden');
+      alert('🌐 Connected to Gmail OAuth 2.0 successfully!\n\n3 active tickets parsed: Vistara UK-814, Hyatt Aerocity, and AI Summit Badge.');
+      calculateRealTripRiskScore();
+    }
+
+    function simulateOutlookOAuthSync() {
+      alert('✉️ Connected to Outlook Mail! Scanning booking emails...');
+      simulateGmailOAuthSync();
+    }
+
+    // REAL OPEN-METEO WEATHER API & VOICE ASSISTANT LOGIC
+    let cityCoords = {
+      delhi: { lat: 28.6139, lon: 77.2090, name: 'New Delhi' },
+      hyderabad: { lat: 17.3850, lon: 78.4867, name: 'Hyderabad' },
+      bengaluru: { lat: 12.9716, lon: 77.5946, name: 'Bengaluru' },
+      london: { lat: 51.5074, lon: -0.1278, name: 'London' },
+      dubai: { lat: 25.2048, lon: 55.2708, name: 'Dubai' }
+    };
+
+    let currentLiveWeatherData = {
+      temp: '26°C • Light Rain',
+      rain: '65% High',
+      traffic: 'Moderate (1.2x)',
+      icon: '🌦️',
+      cityName: 'New Delhi'
+    };
+
+    async function changeCityWeather(cityKey) {
+      const city = cityCoords[cityKey] || cityCoords.delhi;
+      const tempText = document.getElementById('weather-temp-text');
+      if (tempText) tempText.textContent = `Fetching live data for ${city.name}...`;
+
+      try {
+        const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current_weather=true&hourly=precipitation_probability`);
+        const data = await res.json();
+
+        if (data && data.current_weather) {
+          const temp = Math.round(data.current_weather.temperature);
+          const code = data.current_weather.weathercode;
+          const wind = data.current_weather.windspeed;
+          let rainProb = 20;
+          if (data.hourly && data.hourly.precipitation_probability && data.hourly.precipitation_probability.length > 0) {
+            rainProb = data.hourly.precipitation_probability[0] || 25;
+          }
+
+          let conditionStr = 'Clear Sky';
+          let icon = '☀️';
+          if (code >= 51 && code <= 67) { conditionStr = 'Rainy'; icon = '🌧️'; }
+          else if (code >= 71 && code <= 86) { conditionStr = 'Snow'; icon = '❄️'; }
+          else if (code >= 1 && code <= 3) { conditionStr = 'Partly Cloudy'; icon = '⛅'; }
+          else if (code >= 95) { conditionStr = 'Thunderstorm'; icon = '⛈️'; }
+
+          currentLiveWeatherData = {
+            temp: `${temp}°C • ${conditionStr}`,
+            rain: `${rainProb}% ${rainProb > 40 ? 'High' : 'Low'}`,
+            traffic: wind > 18 ? 'Heavy (1.6x)' : 'Normal (1.0x)',
+            icon: icon,
+            cityName: city.name
+          };
+
+          document.getElementById('weather-temp-text').textContent = currentLiveWeatherData.temp;
+          document.getElementById('weather-rain-val').textContent = currentLiveWeatherData.rain;
+          document.getElementById('weather-traffic-val').textContent = currentLiveWeatherData.traffic;
+          document.getElementById('weather-icon-main').textContent = currentLiveWeatherData.icon;
+          calculateRealTripRiskScore();
+          return;
+        }
+      } catch (err) {
+        console.warn('Weather API offline, using cached preset:', err);
+      }
+
+      // Fallback preset
+      const preset = cityWeatherData[cityKey] || cityWeatherData.delhi;
+      document.getElementById('weather-temp-text').textContent = preset.temp;
+      document.getElementById('weather-rain-val').textContent = preset.rain;
+      document.getElementById('weather-traffic-val').textContent = preset.traffic;
+      document.getElementById('weather-icon-main').textContent = preset.icon;
+      calculateRealTripRiskScore();
+    }
+
+    // REAL VOICE ASSISTANT LOGIC (Web Speech API + SpeechSynthesis Audio)
+    let recognition = null;
+
+    function toggleVoiceAssistant() {
+      const panel = document.getElementById('voice-assistant-panel');
+      if (panel) {
+        panel.classList.toggle('hidden');
+        if (!panel.classList.contains('hidden')) {
+          startRealSpeechRecognition();
+        }
+      }
+    }
+
+    function initSpeechRecognition() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (SpeechRecognition) {
+        recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = 'en-US';
+
+        recognition.onstart = function() {
+          const icon = document.getElementById('mic-icon-spin');
+          if (icon) icon.className = 'animate-spin text-yellow-300';
+          const floatingBtn = document.getElementById('floating-mic-btn');
+          if (floatingBtn) floatingBtn.classList.add('ring-4', 'ring-yellow-400/50', 'animate-pulse');
+        };
+
+        recognition.onresult = function(event) {
+          const transcript = event.results[0][0].transcript;
+          stopMicUI();
+          runVoiceQuery(transcript);
+        };
+
+        recognition.onerror = function(event) {
+          stopMicUI();
+          console.warn("Speech recognition error:", event.error);
+          runVoiceQuery("What is my next event?");
+        };
+
+        recognition.onend = function() {
+          stopMicUI();
+        };
+      }
+    }
+
+    function stopMicUI() {
+      const icon = document.getElementById('mic-icon-spin');
+      if (icon) icon.className = '';
+      const floatingBtn = document.getElementById('floating-mic-btn');
+      if (floatingBtn) floatingBtn.classList.remove('ring-4', 'ring-yellow-400/50', 'animate-pulse');
+    }
+
+    function startRealSpeechRecognition() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+      const icon = document.getElementById('mic-icon-spin');
+      if (icon) icon.className = 'animate-spin text-yellow-300';
+      const floatingBtn = document.getElementById('floating-mic-btn');
+      if (floatingBtn) floatingBtn.classList.add('ring-4', 'ring-yellow-400/50', 'animate-pulse');
+
+      if (SpeechRecognition) {
+        if (!recognition) initSpeechRecognition();
+        try {
+          recognition.start();
+        } catch(e) {
+          try {
+            recognition.stop();
+            setTimeout(() => recognition.start(), 200);
+          } catch(err) {
+            runVoiceQuery('What is my next event?');
+          }
+        }
+      } else {
+        runVoiceQuery('What is my next event?');
+      }
+    }
+
+    function submitVoiceText() {
+      const input = document.getElementById('voice-text-input');
+      if (input && input.value.trim()) {
+        const query = input.value.trim();
+        input.value = '';
+        runVoiceQuery(query);
+      }
+    }
+
+    function speakText(textToSpeak) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const clean = textToSpeak.replace(/<[^>]*>/g, '');
+        const utterance = new SpeechSynthesisUtterance(clean);
+        utterance.rate = 1.0;
+        utterance.pitch = 1.0;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    function addChatMessage(sender, text) {
+      const container = document.getElementById('voice-chat-messages');
+      if (!container) return;
+
+      const div = document.createElement('div');
+      if (sender === 'user') {
+        div.className = 'flex items-start justify-end gap-2';
+        div.innerHTML = `
+          <div class="p-3 rounded-2xl rounded-tr-none bg-gradient-to-r from-yellow-400 to-amber-500 text-slate-950 font-bold text-xs leading-relaxed max-w-[80%] shadow-md">
+            ${text}
+          </div>
+          <div class="w-6 h-6 rounded-full bg-slate-800 border border-slate-700 text-white flex items-center justify-center text-[10px] shrink-0 font-bold">👤</div>
+        `;
+      } else {
+        div.className = 'flex items-start gap-2';
+        div.innerHTML = `
+          <div class="w-6 h-6 rounded-full bg-yellow-400 text-slate-950 font-black flex items-center justify-center text-[10px] shrink-0">⚡</div>
+          <div class="p-3 rounded-2xl rounded-tl-none bg-slate-900 border border-slate-800 text-slate-200 text-xs leading-relaxed max-w-[85%] shadow-sm">
+            ${text}
+          </div>
+        `;
+      }
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function runVoiceQuery(queryText) {
+      addChatMessage('user', queryText);
+
+      setTimeout(() => {
+        let answer = "";
+        const lower = queryText.toLowerCase();
+
+        if (lower.includes('next event') || lower.includes('event') || lower.includes('schedule')) {
+          const ev = events[currentEventIndex];
+          answer = `Your next event is <b>${ev.title}</b> at ${ev.time} at ${ev.venue}.`;
+        } else if (lower.includes('weather') || lower.includes('temperature') || lower.includes('rain')) {
+          answer = `Live weather for <b>${currentLiveWeatherData.cityName}</b> is ${currentLiveWeatherData.temp} with ${currentLiveWeatherData.rain} rain probability.`;
+        } else if (lower.includes('late') || lower.includes('delay') || lower.includes('conference')) {
+          answer = `Flight delay simulation is currently at <b>${currentDelayMins} minutes</b>. Check Itinerary Recovery to skip lunch and go direct!`;
+        } else if (lower.includes('cab') || lower.includes('book') || lower.includes('ola') || lower.includes('uber') || lower.includes('rapido')) {
+          openCabModal();
+          answer = `Opening cab fare comparison for Ola, Uber, and Rapido.`;
+        } else {
+          answer = `I am your TripReady AI assistant. Your active event is <b>${events[currentEventIndex].title}</b>.`;
+        }
+
+        addChatMessage('ai', answer);
+        speakText(answer);
+      }, 350);
+    }
+
+    function redirectToCabApp(providerKey) {
+      const provider = cabProviders[providerKey];
+      if (!provider) return;
+
+      closeCabModal();
+
+      const subtitle = document.getElementById('cab-subtitle-text');
+      if (subtitle) {
+        subtitle.innerHTML = `🌐 <b>Redirected to ${provider.name}!</b> Fare estimated at ${provider.fare}.`;
+        subtitle.className = 'text-[11px] text-[#00D2BE] font-bold';
+      }
+
+      alert(`🚀 Redirecting to ${provider.name} (${provider.url})...`);
+      window.open(provider.url, '_blank');
+    }
+
+    function openTripRiskModal() {
+      calculateRealTripRiskScore();
+      document.getElementById('risk-modal').classList.remove('hidden');
+    }
+
+    function closeTripRiskModal() {
+      document.getElementById('risk-modal').classList.add('hidden');
+    }
+
+    function calculateRealTripRiskScore() {
+      let score = 100;
+      let risks = [];
+
+      if (currentDelayMins >= 90) {
+        score -= 25;
+        risks.push({
+          type: "Flight Delay Risk",
+          level: "High Risk",
+          badgeColor: "bg-red-500/20 text-red-300 border-red-500/40",
+          border: "border-red-500/30",
+          title: `Flight Delay (+${currentDelayMins}m)`,
+          desc: `Monsoon weather causes 90m arrival delay. Schedule buffer gap is zero without reroute.`
+        });
+      } else if (currentDelayMins >= 45) {
+        score -= 12;
+        risks.push({
+          type: "Flight Delay Risk",
+          level: "Medium Risk",
+          badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/40",
+          border: "border-amber-500/30",
+          title: `Minor Flight Delay (+${currentDelayMins}m)`,
+          desc: `Moderate 45m arrival delay. Buffer gap narrowed.`
+        });
+      }
+
+      score -= 5;
+      risks.push({
+        type: "Weather Alert",
+        level: "Low Risk",
+        badgeColor: "bg-[#00D2BE]/20 text-[#00D2BE] border-[#00D2BE]/40",
+        border: "border-[#00D2BE]/30",
+        title: "Rain Weather Alert (65% Rain)",
+        desc: "Rain predicted in Delhi. Raincoat / umbrella prep required for transit."
+      });
+
+      let totalUncheckedReq = 0;
+      events.forEach(ev => {
+        ev.checklist.forEach(item => {
+          if (item.required && !item.checked) {
+            totalUncheckedReq++;
+          }
+        });
+      });
+
+      if (totalUncheckedReq > 0) {
+        score -= (totalUncheckedReq * 3);
+        risks.push({
+          type: "Prep Checklist Gap",
+          level: "Medium Risk",
+          badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/40",
+          border: "border-amber-500/30",
+          title: `${totalUncheckedReq} Unchecked Required Items`,
+          desc: "Missing required prep items (e.g. Power bank, hotel security deposit, ID)."
+        });
+      }
+
+      score = Math.max(20, Math.min(100, score));
+
+      const scoreBadge = document.getElementById('risk-score-badge');
+      const scoreLabel = document.getElementById('risk-label');
+      const pageScoreVal = document.getElementById('risk-score-page-val');
+
+      if (scoreBadge) scoreBadge.textContent = `${score}%`;
+      if (pageScoreVal) pageScoreVal.textContent = `${score}%`;
+
+      if (scoreLabel) {
+        if (score >= 85) {
+          scoreLabel.textContent = `${score}% Low Risk 🟢`;
+          scoreLabel.className = 'text-xs font-bold text-[#00D2BE]';
+          if (scoreBadge) {
+            scoreBadge.className = 'w-10 h-10 rounded-full bg-[#00D2BE]/20 border-2 border-[#00D2BE] text-[#00D2BE] flex items-center justify-center font-black text-sm shadow-inner';
+          }
+        } else if (score >= 65) {
+          scoreLabel.textContent = `${score}% Medium Risk 🟠`;
+          scoreLabel.className = 'text-xs font-bold text-amber-400';
+          if (scoreBadge) {
+            scoreBadge.className = 'w-10 h-10 rounded-full bg-amber-500/20 border-2 border-amber-500 text-amber-300 flex items-center justify-center font-black text-sm shadow-inner';
+          }
+        } else {
+          scoreLabel.textContent = `${score}% High Risk 🔴`;
+          scoreLabel.className = 'text-xs font-bold text-red-400';
+          if (scoreBadge) {
+            scoreBadge.className = 'w-10 h-10 rounded-full bg-red-500/20 border-2 border-red-500 text-red-300 flex items-center justify-center font-black text-sm shadow-inner';
+          }
+        }
+      }
+
+      const riskGrid = document.getElementById('risk-cards-grid');
+      if (riskGrid) {
+        riskGrid.innerHTML = '';
+        risks.forEach(r => {
+          const div = document.createElement('div');
+          div.className = `p-4 rounded-2xl bg-slate-900 border ${r.border} space-y-2`;
+          div.innerHTML = `
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-bold text-white">${r.type}</span>
+              <span class="text-[10px] ${r.badgeColor} border px-2.5 py-0.5 rounded-full font-bold uppercase">${r.level}</span>
+            </div>
+            <h4 class="text-sm font-black text-white">${r.title}</h4>
+            <p class="text-xs text-slate-400">${r.desc}</p>
+          `;
+          riskGrid.appendChild(div);
+        });
+      }
+    }
+
+    function renderEvents() {
+      const container = document.getElementById('events-list-container');
+      if (container) {
+        container.innerHTML = '';
+        events.forEach((ev, idx) => {
+          const isCurrent = idx === currentEventIndex;
+          const isCompleted = ev.status === 'completed';
+
+          const item = document.createElement('div');
+          item.className = `p-4 rounded-2xl border transition-all flex items-center justify-between gap-3 ${
+            isCurrent 
+              ? 'bg-[#121824] border-2 border-yellow-400 shadow-lg shadow-yellow-500/10' 
+              : isCompleted 
+                ? 'bg-slate-900/50 border-slate-800/60 opacity-60' 
+                : 'bg-slate-900/80 border-slate-800 hover:border-slate-700'
+          }`;
+
+          item.innerHTML = `
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full flex items-center justify-center font-black text-xs ${
+                isCompleted 
+                  ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' 
+                  : isCurrent 
+                    ? 'bg-yellow-400 text-slate-950 font-black shadow-md' 
+                    : 'bg-slate-800 text-slate-400 border border-slate-700'
+              }">
+                ${isCompleted ? '✓' : idx + 1}
+              </div>
+              <div>
+                <div class="font-extrabold text-xs ${isCurrent ? 'text-white' : isCompleted ? 'line-through text-slate-400' : 'text-slate-200'}">
+                  ${ev.title}
+                </div>
+                <div class="text-[11px] text-slate-400">
+                  📍 ${ev.venue} • 🕒 ${ev.time}
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="openSpecificEventChecklist(${idx})" class="text-[11px] font-bold px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-yellow-300 border border-yellow-500/30 rounded-xl transition-colors">
+                📋 Checklist
+              </button>
+              ${isCurrent ? '<span class="text-[10px] font-bold px-2.5 py-1 bg-yellow-400/20 text-yellow-300 rounded-full border border-yellow-400/40">Active</span>' : ''}
+              ${isCompleted ? '<span class="text-[10px] font-bold px-2.5 py-1 bg-emerald-500/20 text-emerald-400 rounded-full border border-emerald-500/30">Done</span>' : ''}
+            </div>
+          `;
+
+          container.appendChild(item);
+        });
+      }
+
+      const currentEv = events[currentEventIndex];
+      if (currentEv) {
+        document.getElementById('current-event-title').innerHTML = `${currentEv.title}`;
+
+        const gridBox = document.getElementById('event-dynamic-grid');
+        gridBox.innerHTML = '';
+
+        currentEv.meta.forEach(m => {
+          const div = document.createElement('div');
+          div.innerHTML = `
+            <span class="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">${m.label}</span>
+            <span class="font-black ${m.color}">${m.val}</span>
+          `;
+          gridBox.appendChild(div);
+        });
+
+        const transitTimeText = document.getElementById('transit-time-text');
+        const transitDestText = document.getElementById('transit-dest-text');
+        if (transitTimeText) transitTimeText.textContent = currentEv.transitTime;
+        if (transitDestText) transitDestText.textContent = `To ${currentEv.venue}`;
+      }
+
+      renderRecoveryCards(currentDelayMins);
+      calculateRealTripRiskScore();
+    }
+
+    function simulateDelay(mins) {
+      currentDelayMins = mins;
+
+      document.querySelectorAll('.delay-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-yellow-400', 'text-slate-950');
+        btn.classList.add('bg-slate-800', 'text-slate-400');
+      });
+
+      const activeBtn = document.getElementById(`btn-delay-${mins}`);
+      if (activeBtn) {
+        activeBtn.classList.add('active', 'bg-yellow-400', 'text-slate-950');
+        activeBtn.classList.remove('bg-slate-800', 'text-slate-400');
+      }
+
+      renderRecoveryCards(mins);
+      calculateRealTripRiskScore();
+    }
+
+    function renderRecoveryCards(mins) {
+      const origBox = document.getElementById('orig-sequence-box');
+      const suggBox = document.getElementById('suggested-sequence-box');
+      const warnMsg = document.getElementById('orig-warning-msg');
+      const suggMsg = document.getElementById('suggested-summary-msg');
+      const badge = document.getElementById('suggested-status-badge');
+      const statusPill = document.getElementById('recovery-status-pill');
+
+      if (!origBox || !suggBox) return;
+
+      if (mins === 0) {
+        statusPill.textContent = '✅ Schedule On Time';
+        statusPill.className = 'text-xs bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full font-bold border border-emerald-500/30';
+
+        origBox.innerHTML = `
+          <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center gap-2">
+            <span>🛬</span> <span>Airport (Landing 12:15 PM - On Time)</span>
+          </div>
+          <div class="text-center text-slate-500 text-xs">↓</div>
+          <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center gap-2">
+            <span>🏨</span> <span>Hotel Check-in (01:00 PM)</span>
+          </div>
+          <div class="text-center text-slate-500 text-xs">↓</div>
+          <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center gap-2">
+            <span>🍽️</span> <span>Lunch (02:15 PM)</span>
+          </div>
+          <div class="text-center text-slate-500 text-xs">↓</div>
+          <div class="p-3 rounded-xl bg-slate-900 border border-emerald-500/40 flex items-center gap-2 font-bold text-emerald-400">
+            <span>🏛️</span> <span>Conference (04:30 PM - On Time ✅)</span>
+          </div>
+        `;
+
+        suggBox.innerHTML = `
+          <div class="p-4 rounded-2xl bg-slate-900 border border-emerald-500/30 text-center space-y-2">
+            <span class="text-2xl">🎉</span>
+            <div class="text-xs font-bold text-white">Current Schedule is Optimal!</div>
+            <p class="text-[11px] text-slate-400">No flight delay detected. Original timeline allows comfortable timing for hotel check-in and lunch.</p>
+          </div>
+        `;
+
+        warnMsg.textContent = '✅ No schedule conflicts detected.';
+        warnMsg.className = 'text-[11px] text-emerald-400 font-semibold';
+        suggMsg.textContent = '✅ All events running on schedule.';
+        badge.textContent = 'Schedule Optimal';
+
+      } else {
+        statusPill.textContent = `⚡ +${mins} Mins Delay Reroute Active`;
+        statusPill.className = 'text-xs bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full font-bold border border-amber-500/30';
+
+        const landingTime = mins === 90 ? '01:45 PM' : '01:00 PM';
+        const confTime = mins === 90 ? '03:30 PM' : '02:45 PM';
+
+        origBox.innerHTML = `
+          <div class="p-3 rounded-xl bg-slate-900 border border-amber-500/40 flex items-center gap-2 text-amber-300 font-bold">
+            <span>🛬</span> <span>Airport (Landing ${landingTime} - Delayed +${mins}m)</span>
+          </div>
+          <div class="text-center text-slate-500 text-xs">↓ Transit 45m</div>
+          <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center gap-2">
+            <span>🏨</span> <span>Hotel Check-in (02:30 PM)</span>
+          </div>
+          <div class="text-center text-slate-500 text-xs">↓ Lunch 1h 15m</div>
+          <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center gap-2">
+            <span>🍽️</span> <span>Lunch (03:45 PM)</span>
+          </div>
+          <div class="text-center text-slate-500 text-xs">↓</div>
+          <div class="p-3 rounded-xl bg-red-950/40 border border-red-500/40 flex items-center gap-2 text-red-400 font-bold">
+            <span>🏛️</span> <span>Conference (${confTime} - LATE ⚠️)</span>
+          </div>
+        `;
+
+        suggBox.innerHTML = `
+          <div class="p-3 rounded-xl bg-slate-900 border border-emerald-500/30 flex items-center gap-2 text-emerald-300 font-bold">
+            <span>🛬</span> <span>Airport (Landing ${landingTime} - Delayed)</span>
+          </div>
+          <div class="text-center text-[#00D2BE] text-xs font-bold">↓ Direct Cab to Venue (Bypasses Hotel)</div>
+          <div class="p-3 rounded-xl bg-emerald-600 text-white font-bold flex items-center gap-2 shadow-lg shadow-emerald-900/40">
+            <span>🏛️</span> <span>Conference (Direct Attendance at 02:30 PM ✅)</span>
+          </div>
+          <div class="text-center text-slate-500 text-xs">↓ Evening Check-in</div>
+          <div class="p-3 rounded-xl bg-slate-900 border border-emerald-500/30 flex items-center gap-2">
+            <span>🏨</span> <span>Hotel Check-in (06:00 PM)</span>
+          </div>
+          <div class="p-3 rounded-xl bg-red-950/40 border border-red-500/30 flex items-center justify-between text-red-300 font-bold">
+            <span>🍽️ Lunch Event</span>
+            <span class="text-[10px] bg-red-600 text-white px-2 py-0.5 rounded-full uppercase font-bold">Bypassed (Saved 1h 15m)</span>
+          </div>
+        `;
+
+        warnMsg.textContent = `⚠️ +${mins}m flight delay causes late arrival at Conference if hotel/lunch stops are taken!`;
+        warnMsg.className = 'text-[11px] text-red-400 italic font-medium';
+        suggMsg.textContent = `✅ Direct Airport ➔ Conference route saves 1h 30m! Lunch skipped to guarantee 100% keynote attendance.`;
+        badge.textContent = 'On Time Recovery';
+      }
+    }
+
+    function applyRecoveredItinerary() {
+      if (currentDelayMins > 0) {
+        const confEv = events.find(e => e.type === 'Conference');
+        const hotelEv = events.find(e => e.type === 'Hotel Check-in');
+        
+        if (confEv && hotelEv) {
+          confEv.time = "02:30 PM (Direct Route)";
+          hotelEv.time = "06:00 PM (Evening Check-in)";
+        }
+        currentDelayMins = 0;
+        renderEvents();
+        alert('⚡ New Suggested Plan Applied! Direct Airport ➔ Conference route set as master itinerary. Trip Risk Score restored!');
+      } else {
+        alert('Current schedule is already optimal.');
+      }
+      switchTab('tab-home');
+    }
+
+    function openEventChecklistModal() {
+      openSpecificEventChecklist(currentEventIndex);
+    }
+
+    function openSpecificEventChecklist(eventIdx) {
+      const ev = events[eventIdx];
+      document.getElementById('checklist-modal').classList.remove('hidden');
+      document.getElementById('modal-checklist-title').textContent = `${ev.type} Checklist`;
+      document.getElementById('modal-checklist-subtitle').textContent = `Items needed for ${ev.title}`;
+
+      const modalContainer = document.getElementById('modal-checklist-items');
+      modalContainer.innerHTML = '';
+
+      ev.checklist.forEach((item, idx) => {
+        const div = document.createElement('div');
+        div.className = 'flex items-center justify-between p-3.5 rounded-2xl bg-slate-900 border border-slate-800';
+        div.innerHTML = `
+          <label class="flex items-center gap-3 cursor-pointer w-full">
+            <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="toggleItemCheck(${eventIdx}, ${idx})" class="w-4 h-4 rounded border-slate-700 text-yellow-400 focus:ring-yellow-400 accent-yellow-400">
+            <span class="font-bold text-white text-xs">${item.name}</span>
+          </label>
+        `;
+        modalContainer.appendChild(div);
+      });
+    }
+
+    function toggleItemCheck(eventIdx, itemIdx) {
+      events[eventIdx].checklist[itemIdx].checked = !events[eventIdx].checklist[itemIdx].checked;
+      renderEvents();
+    }
+
+    function closeEventChecklistModal() {
+      document.getElementById('checklist-modal').classList.add('hidden');
+    }
+
+    function finishCurrentEvent() {
+      if (currentEventIndex < events.length - 1) {
+        events[currentEventIndex].status = 'completed';
+        currentEventIndex++;
+        events[currentEventIndex].status = 'active';
+        renderEvents();
+        alert(`✅ Event marked completed! Next event loaded: ${events[currentEventIndex].title}`);
+      } else {
+        alert('🎉 All trip events completed!');
+      }
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
+      
+      document.querySelectorAll('.bottom-nav-item').forEach(b => {
+        b.classList.remove('active');
+        b.classList.remove('text-slate-950');
+        b.classList.add('text-slate-400');
+      });
+
+      document.getElementById(tabId).classList.remove('hidden');
+      
+      const activeNavBtn = document.getElementById(`bnav-${tabId}`);
+      if (activeNavBtn) {
+        activeNavBtn.classList.add('active');
+        activeNavBtn.classList.remove('text-slate-400');
+        activeNavBtn.classList.add('text-slate-950');
+      }
+
+      const mainContainer = document.querySelector('.scrollable-content');
+      if (mainContainer) {
+        mainContainer.scrollTop = 0;
+      }
+    }
+
+    function openCabModal() {
+      const currentEv = events[currentEventIndex];
+      const desc = document.getElementById('cab-modal-dest-desc');
+      if (desc && currentEv) {
+        desc.textContent = `Live fares & direct app launch to ${currentEv.venue}`;
+      }
+      document.getElementById('cab-modal').classList.remove('hidden');
+    }
+
+    function closeCabModal() {
+      document.getElementById('cab-modal').classList.add('hidden');
+    }
+
+    function loadSampleTicket() {
+      document.getElementById('ticket-text-input').value = `VISTARA AIRLINES - FLIGHT E-TICKET PNR: UK814
+Passenger: User
+Flight: UK-814 | Date: 20 Sep 2026
+Origin: HYD (Hyderabad) -> Destination: DEL (Delhi T3)
+Departure: 10:00 AM | Gate: 4B | Terminal: Terminal 3
+Check-in Counter Opens: 08:00 AM
+Baggage Allowance: Check-in 15 kg, Cabin 7 kg
+Hotel Reservation: Grand Hyatt Aerocity | Check-in: 02:00 PM | Check-out: 11:00 AM`;
+    }
+
+    function extractTicketFeatures() {
+      const text = document.getElementById('ticket-text-input').value;
+      if (!text.trim()) {
+        alert('Please enter or paste ticket text.');
+        return;
+      }
+
+      document.getElementById('extraction-result').classList.remove('hidden');
+      document.getElementById('ext-terminal').textContent = text.includes('Terminal 3') ? 'Terminal 3 (T3)' : 'Terminal 1';
+      document.getElementById('ext-checkin').textContent = '08:00 AM';
+      document.getElementById('ext-checkout').textContent = '11:00 AM';
+      document.getElementById('ext-baggage').textContent = '15 kg Check-in (7 kg Cabin)';
+      
+      calculateRealTripRiskScore();
+    }
+
+    // Initialize
+    renderEvents();
+    changeCityWeather('delhi');
+  </script>
+</body>
+</html>
